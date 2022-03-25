@@ -3,9 +3,22 @@
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\core\VertexArray.cpp" />
+    <ClCompile Include="src\core\VertexBuffer.cpp" />
+    <ClCompile Include="src\core\ElementBuffer.cpp" />
+    <ClCompile Include="src\core\Shader.cpp" />
+    <ClCompile Include="src\core\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\vertex_basic.shader" />
     <None Include="res\shaders\fragment_basic.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\VertexArray.h" />
+    <ClInclude Include="src\core\VertexBuffer.h" />
+    <ClInclude Include="src\core\Renderer.h" />
+    <ClInclude Include="src\core\VertexBufferLayout.h" />
+    <ClInclude Include="src\core\ElementBuffer.h" />
+    <ClInclude Include="src\core\Shader.h" />
   </ItemGroup>
 </Project>
