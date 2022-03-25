@@ -42,29 +42,42 @@ int main() {
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	
+	// Square
+	//float vertices[] = {
+	//	 0.5f,  0.5f, 0.0f,  // top right
+	//	 0.5f, -0.5f, 0.0f,  // bottom right
+	//	-0.5f, -0.5f, 0.0f,  // bottom left
+	//	-0.5f,  0.5f, 0.0f   // top left 
+	//};
+	
 	float vertices[] = {
-		 0.5f,  0.5f, 0.0f,  // top right
-		 0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
+		// positions         // colors
+		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
 	};
+	
 	unsigned int indices[] = {  // note that we start from 0!
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
 	};
-	
+	Renderer renderer;
 	Shader shader("res/shaders/vertex_basic.shader", "res/shaders/fragment_basic.shader");
 	
 	VertexBuffer VBO(vertices, sizeof(vertices));
-	ElementBuffer EBO(indices, 6);
+	//ElementBuffer EBO(indices, 6);
 	VertexArray VAO;
 	
 	VBO.Bind();
 	VAO.Bind();
-	EBO.Bind();
+	//EBO.Bind();
 	
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
 	
 	VBO.Unbind();
 	VAO.Unbind();
@@ -76,11 +89,11 @@ int main() {
 		
 		//Render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		renderer.Clear();
 		
 		shader.Bind();
 		VAO.Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		renderer.DrawArrays(VAO, 0, 3, shader);
 		
 		//Check and call events and swap the buffers
 		glfwSwapBuffers(window);
