@@ -1,12 +1,2 @@
 ﻿  Application.cpp
-  ElementBuffer.cpp
-  Renderer.cpp
-  Shader.cpp
-  VertexArray.cpp
-D:\Code\Graphics\Graphics\src\core\VertexArray.cpp(22,116): warning C4312: 'type cast': conversion from 'unsigned int' to 'const void *' of greater size
-  VertexBuffer.cpp
-  Generating Code...
-D:\Code\Graphics\Graphics\src\core\Shader.cpp(103): warning C4715: 'Shader::CheckShader': not all control paths return a value
-D:\Code\Graphics\Graphics\src\core\Shader.cpp(54): warning C4715: 'Shader::CompileShader': not all control paths return a value
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Graphics.vcxproj -> D:\Code\Graphics\bin\x64\Debug\Graphics.exe

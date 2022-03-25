@@ -10,6 +10,5 @@
 class Renderer {
 public:
 	void Clear() const;
-	void DrawElements(const VertexArray& vertexArray, const ElementBuffer& elementBuffer, const Shader& shader) const;
-	void DrawArrays(const VertexArray& vertexArray, const GLint first, const GLsizei count, const Shader& shader) const;
+	void Draw(const VertexArray& vertexArray, const ElementBuffer& elementBuffer, const Shader& shader) const;
 };

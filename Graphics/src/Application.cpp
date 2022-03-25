@@ -6,8 +6,11 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "stb_image/stb_image.h"
 
 #include "core/Renderer.h"
+#include "core/Texture.h"
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -39,48 +42,54 @@ int main() {
 	}
 	std::cout << glGetString(GL_VERSION) << std::endl;
 	
-	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	
-	// Square
-	//float vertices[] = {
-	//	 0.5f,  0.5f, 0.0f,  // top right
-	//	 0.5f, -0.5f, 0.0f,  // bottom right
-	//	-0.5f, -0.5f, 0.0f,  // bottom left
-	//	-0.5f,  0.5f, 0.0f   // top left 
-	//};
-	
 	float vertices[] = {
-		// positions         // colors
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
+		// positions          // colors           // texture coords
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
 	};
 	
 	unsigned int indices[] = {  // note that we start from 0!
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
 	};
+	
 	Renderer renderer;
 	Shader shader("res/shaders/vertex_basic.shader", "res/shaders/fragment_basic.shader");
-	
+
 	VertexBuffer VBO(vertices, sizeof(vertices));
-	//ElementBuffer EBO(indices, 6);
+	ElementBuffer EBO(indices, sizeof(indices));
 	VertexArray VAO;
 	
 	VBO.Bind();
 	VAO.Bind();
-	//EBO.Bind();
+	EBO.Bind();
 	
 	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	// texture attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+	
+	
+	// Texture Handling
+	Texture texture1("res/textures/container.jpg");
+	Texture texture2("res/textures/awesomeface.png");
+	
+	shader.Bind();
+	shader.SetUniformli("texture1", 0);
+	shader.SetUniformli("texture2", 1);
 	
 	VBO.Unbind();
 	VAO.Unbind();
+	
 	
 	//Render Loop
 	while (!glfwWindowShouldClose(window)) {
@@ -90,10 +99,11 @@ int main() {
 		//Render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		renderer.Clear();
-		
+		texture1.Bind(0);
+		texture2.Bind(1);
 		shader.Bind();
 		VAO.Bind();
-		renderer.DrawArrays(VAO, 0, 3, shader);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		
 		//Check and call events and swap the buffers
 		glfwSwapBuffers(window);
