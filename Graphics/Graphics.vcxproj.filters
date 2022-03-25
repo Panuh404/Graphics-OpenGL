@@ -4,4 +4,8 @@
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\vertex_basic.shader" />
+    <None Include="res\shaders\fragment_basic.shader" />
+  </ItemGroup>
 </Project>

@@ -1,2 +1,4 @@
 ﻿  Application.cpp
+D:\Code\Graphics\Graphics\src\Application.cpp(73): warning C4715: 'compile_shader': not all control paths return a value
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Graphics.vcxproj -> D:\Code\Graphics\bin\x64\Debug\Graphics.exe
