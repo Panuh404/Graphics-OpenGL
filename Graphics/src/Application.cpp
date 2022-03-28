@@ -8,6 +8,10 @@
 #include "GLFW/glfw3.h"
 #include "stb_image/stb_image.h"
 
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
+
 #include "core/Renderer.h"
 #include "core/Texture.h"
 
@@ -89,8 +93,7 @@ int main() {
 	
 	VBO.Unbind();
 	VAO.Unbind();
-	
-	
+		
 	//Render Loop
 	while (!glfwWindowShouldClose(window)) {
 		//Input
@@ -98,6 +101,12 @@ int main() {
 		
 		//Render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		
+		glm::mat4 trans = glm::mat4(1.0f);
+		trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		shader.SetUniformMat4("transform", trans);
+		
 		renderer.Clear();
 		texture1.Bind(0);
 		texture2.Bind(1);
