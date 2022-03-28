@@ -18,3 +18,4 @@
 3. Add glm for Math calculations, Draw a Square, all elements have been abstracted into its own class;
 4. Draw a colorful Triangle, added uniforms for shaders, added renderer;
 5. Add stb_image for Textures, created Texture class;
+6. Textures has been implemented, Texture demo;
