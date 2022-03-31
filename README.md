@@ -21,3 +21,4 @@
 6. Textures has been implemented, Texture demo;
 7. Transformation and Rotation Cube, Basic Matrix;
 8. 3D Cubes... a lot;
+9. Camera Can move around
