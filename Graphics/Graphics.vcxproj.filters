@@ -10,6 +10,7 @@
     <ClCompile Include="src\core\Renderer.cpp" />
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\core\Texture.cpp" />
+    <ClCompile Include="src\core\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\vertex_basic.shader" />
@@ -24,5 +25,6 @@
     <ClInclude Include="src\core\Shader.h" />
     <ClInclude Include="src\vendor\stb_image\stb_image.h" />
     <ClInclude Include="src\core\Texture.h" />
+    <ClInclude Include="src\core\Camera.h" />
   </ItemGroup>
 </Project>
